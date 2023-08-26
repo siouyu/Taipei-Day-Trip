@@ -6,7 +6,7 @@ print("gala gala")
 
 @app.route("/") 
 def home():
-    print("嘎拉嘎拉")
+    print("閃電！")
     # if session.get("username"):
     #     return redirect("/member")
     # else:
