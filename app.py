@@ -9,8 +9,8 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 def connection():
     con = mysql.connector.connect(
         user = "root",
-        password = "test", # 上 GitHub 前要拿掉！！！！！！！！
-        host = "127.0.0.1", # 上 AWS 後這裡可能要改
+        password = "test", 
+        host = "127.0.0.1",
         database = "website",
     )
     return con
@@ -36,6 +36,7 @@ def thankyou():
 # 取得景點資料列表
 @app.route("/api/attractions")
 def get_attractions():	
+	cursor = None
 	try:
 		con = connection()
 		cursor = con.cursor(dictionary = True)
@@ -63,9 +64,15 @@ def get_attractions():
 	except mysql.connector.Error as error:
 		return jsonify({"error": True, "message": "伺服機內部錯誤"})
 
+	finally:
+		if cursor:
+			cursor.close()
+			con.close()
+
 # 根據景點編號取得景點資料
 @app.route("/api/attraction/<int:attractionId>")
 def get_attraction(attractionId):
+	cursor = None
 	try:
 		con = connection()
 		cursor = con.cursor(dictionary = True)
@@ -86,12 +93,14 @@ def get_attraction(attractionId):
 		return jsonify({"error": True, "message": "伺服機內部錯誤"})
 
 	finally:
-		cursor.close()
-		con.close()
+		if cursor:
+			cursor.close()
+			con.close()
 
 # 取得捷運站資料列表
 @app.route("/api/mrts")
 def mrts():
+	cursor = None
 	try:
 		con = connection()
 		cursor = con.cursor()
@@ -104,8 +113,9 @@ def mrts():
 		return jsonify({"error": True, "message": "伺服機內部錯誤"})
 
 	finally:
-		cursor.close()
-		con.close()
+		if cursor:
+			cursor.close()
+			con.close()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port = 3000, debug = True)

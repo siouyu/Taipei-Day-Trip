@@ -7,8 +7,8 @@ with open("data/taipei-attractions.json", "r", encoding = "utf-8") as json_file:
 def connection():
     con = mysql.connector.connect(
         user = "root",
-        password = "test", # 上 GitHub 前要拿掉！！！！！！！！
-        host = "127.0.0.1", # 上 AWS 後這裡可能要改
+        password = "test",
+        host = "127.0.0.1",
         database = "website",
     )
     return con
