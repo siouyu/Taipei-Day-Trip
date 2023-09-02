@@ -1,7 +1,5 @@
 import json
 import mysql.connector
-import os
-from dotenv import load_dotenv
 
 with open("data/taipei-attractions.json", "r", encoding = "utf-8") as json_file:
     data = json.load(json_file)

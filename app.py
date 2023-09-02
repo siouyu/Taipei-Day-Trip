@@ -44,7 +44,8 @@ def get_attractions():
 		keyword = request.args.get("keyword", None)
 		query = "SELECT * FROM Attraction"
 		if keyword:
-			query += f" WHERE name LIKE '%{keyword}%' OR mrt LIKE '%{keyword}%'"
+			query += f" WHERE name LIKE '%{keyword}%' OR mrt LIKE '%{keyword}%'" # f 是 format、% 是前後模糊
+			print(query)
 
 		per_page = 12
 		offset = page * per_page
@@ -63,7 +64,6 @@ def get_attractions():
 	
 	except mysql.connector.Error as error:
 		return jsonify({"error": True, "message": f"伺服器內部錯誤: {str(error)}"})
-		# return jsonify({"error": True, "message": "error"})
 
 	finally:
 		if cursor:
@@ -92,7 +92,6 @@ def get_attraction(attractionId):
 
 	except mysql.connector.Error as error:
 		return jsonify({"error": True, "message": f"伺服器內部錯誤: {str(error)}"})
-		# return jsonify({"error": True, "message": "error"})
 
 	finally:
 		if cursor:
