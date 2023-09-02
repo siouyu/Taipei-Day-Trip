@@ -43,20 +43,24 @@ def get_attractions():
 		page = int(request.args.get("page", 0))
 		keyword = request.args.get("keyword", None)
 		query = "SELECT * FROM Attraction"
+		params = []
+
 		if keyword:
-			query += f" WHERE name LIKE '%{keyword}%' OR mrt LIKE '%{keyword}%'" # f 是 format、% 是前後模糊
-			print(query)
+			query += f" WHERE name LIKE %s OR mrt LIKE %s" 
+			keyword = f"%{keyword}%"  # f 是 format、% 是前後模糊
+			params = [keyword, keyword]
 
 		per_page = 12
 		offset = page * per_page
-		query += f" LIMIT {per_page} OFFSET {offset}"
+		query += " LIMIT %s OFFSET %s"
+		params += [per_page, offset]
 
-		cursor.execute(query)
+		cursor.execute(query, params)
 		attractions = cursor.fetchall()
 
 		for attraction in attractions:
-			image_query = f"SELECT image FROM Attraction_image WHERE attraction_id = {attraction['id']}"
-			cursor.execute(image_query)
+			image_query = "SELECT image FROM Attraction_image WHERE attraction_id = %s"
+			cursor.execute(image_query, [attraction['id']])
 			images = cursor.fetchall()
 			attraction["images"] = [img['image'] for img in images]
 
@@ -88,7 +92,7 @@ def get_attraction(attractionId):
 	try:
 		con = connection()
 		cursor = con.cursor(dictionary = True)
-		query = " SELECT * FROM Attraction WHERE id = %s "
+		query = "SELECT * FROM Attraction WHERE id = %s"
 		cursor.execute(query, (attractionId,))
 		attraction = cursor.fetchone()
 	
@@ -123,8 +127,7 @@ def mrts():
 
 	except mysql.connector.Error as error:
 		return jsonify({"error": True, "message": f"伺服器內部錯誤: {str(error)}"})
-		# return jsonify({"error": True, "message": "error"})
-	
+
 	finally:
 		if cursor:
 			cursor.close()
