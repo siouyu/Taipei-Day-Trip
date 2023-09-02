@@ -56,10 +56,14 @@ def get_attractions():
 		cursor.close()
 		con.close()
 
+		has_more_data = len(attractions) == per_page
 		response_data = {
-			"nextPage": page + 1,
     		"data": attractions
 		}
+		if has_more_data:
+			response_data["nextPage"] = page + 1
+		else:
+			response_data["nextPage"] = None
 		return jsonify(response_data)
 	
 	except mysql.connector.Error as error:
