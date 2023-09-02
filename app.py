@@ -62,7 +62,8 @@ def get_attractions():
 		return jsonify(response_data)
 	
 	except mysql.connector.Error as error:
-		return jsonify({"error": True, "message": "error"})
+		return jsonify({"error": True, "message": f"伺服器內部錯誤: {str(error)}"})
+		# return jsonify({"error": True, "message": "error"})
 
 	finally:
 		if cursor:
@@ -90,7 +91,8 @@ def get_attraction(attractionId):
 			return jsonify({"error":True, "message":"景點編號不正確"})
 
 	except mysql.connector.Error as error:
-		return jsonify({"error": True, "message": "error"})
+		return jsonify({"error": True, "message": f"伺服器內部錯誤: {str(error)}"})
+		# return jsonify({"error": True, "message": "error"})
 
 	finally:
 		if cursor:
@@ -110,7 +112,8 @@ def mrts():
 		return jsonify({"data": mrt_list})  
 
 	except mysql.connector.Error as error:
-		return jsonify({"error": True, "message": "error"})
+		return jsonify({"error": True, "message": f"伺服器內部錯誤: {str(error)}"})
+		# return jsonify({"error": True, "message": "error"})
 	
 	finally:
 		if cursor:
