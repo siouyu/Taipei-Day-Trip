@@ -1,5 +1,7 @@
 import json
 import mysql.connector
+import os
+from dotenv import load_dotenv
 
 with open("data/taipei-attractions.json", "r", encoding = "utf-8") as json_file:
     data = json.load(json_file)
@@ -7,7 +9,7 @@ with open("data/taipei-attractions.json", "r", encoding = "utf-8") as json_file:
 def connection():
     con = mysql.connector.connect(
         user = "root",
-        password = "test",
+        password = "test", 
         host = "127.0.0.1",
         database = "website",
     )
