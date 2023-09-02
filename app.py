@@ -53,6 +53,13 @@ def get_attractions():
 
 		cursor.execute(query)
 		attractions = cursor.fetchall()
+
+		for attraction in attractions:
+			image_query = f"SELECT image FROM Attraction_image WHERE attraction_id = {attraction['id']}"
+			cursor.execute(image_query)
+			images = cursor.fetchall()
+			attraction["images"] = [img['image'] for img in images]
+
 		cursor.close()
 		con.close()
 
