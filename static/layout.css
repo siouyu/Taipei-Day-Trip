@@ -30,7 +30,7 @@
 
 /* 封面圖 */
 .slogan_background{
-    background-image: url("/static/welcome_image.png");
+    background-image: url("/static/images/welcome_image.png");
     background-repeat: no-repeat; 
     background-position: top;
     background-size:cover;
@@ -93,7 +93,7 @@
     margin-bottom: 15px;  
 }
 .attraction_img{
-    background-image: url("/static/pug.jpg");
+    background-image: url("/static/images/pug.jpg");
     background-repeat: no-repeat; 
     background-position: top;
     background-size: cover;
