@@ -1,141 +1,151 @@
-*{
+*{ 
     margin:0px;
+    font-family: Georgia;
+    color: #757575;
+}
+.basic_frame{
+    display:flex;
+    justify-content: center;
+}
+.max_width{
+    max-width: 1200px;
+}
+.navigation_frame{
+    display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px; 
+    margin-bottom:10px;
+}
+.navigation_left{
+    font-size: 30px;
+    color: #448899;
+    font-weight: bold;
+    padding-right: 865px;
+}
+.navigation_right{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* 封面圖 */
+.slogan_background{
+    background-image: url("/static/images/welcome_image.png");
+    background-repeat: no-repeat; 
+    background-position: top;
+    background-size:cover;
+    height: 320px;
+    width: 100%;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.slogan_frame{
+    width:1200px;
+    padding-left: 10px;
+    margin-bottom: 30px;
+}
+.slogan_word{
+    color:white;
+    font-weight: bolder;
+    padding-bottom: 20px; 
 }
 .title{
-    color:white;
-    height:150px;
-    background-color:#003060;
-    text-align: center;
+    font-size: 30px;   
+}
+.subtitle{
+    font-size: 17.5px;
+}
+
+/* 捷運列 */
+.mrt_list{
     display:flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom:30px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 30px;  
 }
-.titleOne{
-    color:white;
-    height:150px;
-    background-color:#003060;
-    text-align: center;
+.mrt_word{
+    width: 1200px;
+}
+.list_btn{
+    width: 30px;
+    height: 30px;
+}
+
+/* 景點列表 */
+.attraction_frame{
     display:flex;
+    justify-content: center;
+}
+.attraction{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E8E8E8;
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width:calc(25% - 32.5px);
+    margin-top: 15px;
+    margin-bottom: 15px;  
+}
+.attraction_img{
+    background-image: url("/static/images/pug.jpg");
+    background-repeat: no-repeat; 
+    background-position: top;
+    background-size: cover;
+    width: 100%;
+    height: 202px;
+    display:flex;
+    align-items: flex-end;
+}
+.attraction_name{
+    display: flex;
+    justify-content: start;
     align-items: center;
-    margin-bottom:50px;
-}
-.word{
-    display:flex;
-    font-size: 25px;
-    margin-top: 20px;
-    margin-bottom: 15px;
-}
-.containerOne{
-    position: relative;
+    background-color:rgba(0, 0, 0, 0.5);;
+    color: white;
     width: 100%;
-    height: 200px;
-    margin-bottom:20px;
+    font-weight: bolder;
+    height: 40px;
+    padding-left: 10px;
 }
-.containerTwo{
+.attraction_word{
+    display: flex;
+    align-items: center;
+    height:40px;
+}
+.attraction_word_mrt{
+    margin-left: 10px;
+}
+.attraction_word_cat{
+    margin-left: 120px;
+}
+
+
+
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    width: 100%;
-    height: 200px;
+    bottom: 0;
+    color:white;
+    background-color: #757575;
+    width:100%;
+    height: 104px;
 }
-.centerOne {
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+@media(min-width:1920px){
+    .attraction_frame{
+        flex-wrap: wrap;    
+    }
 }
-.centerTwo {
-    position: absolute;
-    top: 39%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.detail{
-    font-size: 18px;
-}
-.inputDetail{
-    margin-bottom: 15px;
-    height:25px;
-    font-size: 18px;
-}
-.signInBtn{
-    display:flex;
-    height:50px;
-}
-.check{
-    display: flex;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-.button{
-    display: flex;
-    width: 60px;
-    height: 35px;
-    cursor: pointer;
-    font-size: 15px;
-}
-/* member頁面 */
-.back{
-    display: flex;
-    margin-bottom:35px;
-}
-.backHome{
-    display: flex;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-top: 15px;
-}
-.containerThree{
-    position: relative;
-    width: 100%;
-    height: 100px;
-}
-.centerThree {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.box{
-    display:flex;
-    margin-top: 15px;
-}
-.user{
-    font-weight: bold;
-}
-.message{
-    display: flex;
-}
-.searchName{
-    margin-bottom: 15px;
-    margin-right:20px;
-    height:25px;
-    font-size: 18px;
-}
-.renewName{
-    margin-bottom: 15px;
-    margin-right:20px;
-    height:25px;
-    font-size: 18px;
-}
-.searchLayout{
-    display:flex;
-}
-.buttonSearch{
-    display: flex;
-    width: 60px;
-    height: 35px;
-    cursor: pointer;
-    font-size: 15px;
-    margin-bottom: 15px;
-}
-.searchResult{
-    display:flex;
-}
-.renameResult{
-    display:flex;
+@media(max-width:1920px){
+    .attraction_frame{
+        flex-wrap: wrap;    
+    }
 }
