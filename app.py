@@ -1,8 +1,9 @@
 from flask import *
 import mysql.connector
+import os
 
+# app.json.ensure_ascii = False
 app = Flask(__name__)
-
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
@@ -31,6 +32,7 @@ def booking():
 @app.route("/thankyou") # 已寫好的路由函式，勿更動！
 def thankyou():
 	return render_template("thankyou.html")
+	print(os.environ)
 
 
 # 取得景點資料列表
@@ -40,7 +42,7 @@ def get_attractions():
 	try:
 		con = connection()
 		cursor = con.cursor(dictionary = True)
-		page = int(request.args.get("page", 0))
+		page = int(request.args.get("page", 0)) # 頁數從 0 開始
 		keyword = request.args.get("keyword", None)
 		query = "SELECT * FROM Attraction"
 		params = []
