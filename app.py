@@ -5,7 +5,7 @@ import os
 
 # app.json.ensure_ascii = False
 app = Flask(__name__)
-CORS(app, origins=["http://127.0.0.1"])
+CORS(app)
 
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
