@@ -1,6 +1,8 @@
 let nextPage = 0; // 全域變數
 let keyword = null; // 預設頁面一開始都沒有關鍵字
+let isLoading = false; // 一開始沒有在載入頁面
 const attractionFrame = document.getElementById("attraction_frame")
+const searchInput = document.getElementById("search_input");
 
 function attractionHTML(attractions, attractionFrame){
     for (let i = 0; i < attractions.length; i++) {
@@ -30,11 +32,15 @@ function loadNextPage(keyword) {
     if (nextPage === null) {
         return;
     }
+    if (isLoading === true) {
+        return;
+    }
     if (keyword){
         nextPageUrl = `/api/attractions?page=${nextPage}&keyword=${keyword}` // 如果有給 keyword 先跑這個
     }else{
         nextPageUrl = `/api/attractions?page=${nextPage}`; // 如果沒有 keyword 就跑這個
     }
+    isLoading = true; // 準備要去 API 取東西
     fetch(nextPageUrl).then(function (response) {
         return response.json();
     }).then(function (data) {
@@ -45,8 +51,35 @@ function loadNextPage(keyword) {
         } else {
             nextPage = null;
         }
+        isLoading = false; // 跑完不要繼續載
     })
     .catch(function (error) {
+        console.log("發生錯誤" + error);
+    });
+}
+
+function searchKeyword(){
+    keyword = searchInput.value.trim(); // 更新關鍵字 → 上面的全域變數被更新
+    if (keyword === ""){
+        return
+    }
+    fetch(`/api/attractions?keyword=${keyword}`).then(function(response){
+        return response.json();
+    }).then(function(data){
+        const attractions = data.data;
+        attractionFrame.innerHTML = "";
+        // console.log(data)
+        if (attractions.length === 0 ){
+            let noResultMessage = document.createElement("div");
+            noResultMessage.classList.add("no_result_message");
+            noResultMessage.textContent = "沒有符合的景點";
+            attractionFrame.appendChild(noResultMessage);
+        }else{
+            attractionHTML(attractions, attractionFrame);
+            nextPage = data.nextPage
+        }
+    })
+    .catch(function(error){
         console.log("發生錯誤" + error);
     });
 }
@@ -70,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
             mrtStations.forEach(function(station) {
                 station.addEventListener("click", function() {
                     searchInput.value = station.textContent;
+                    searchKeyword();
                 });
             });
         })
@@ -92,37 +126,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 關鍵字搜尋
 document.addEventListener("DOMContentLoaded", function(){
-    let searchInput = document.getElementById("search_input");
     let searchBtn = document.getElementById("search_btn");
-    searchBtn.addEventListener("click",function(){
-        keyword = searchInput.value.trim(); // 更新關鍵字 → 上面的全域變數被更新
-        fetch(`/api/attractions?keyword=${keyword}`).then(function(response){
-            return response.json();
-        }).then(function(data){
-            const attractions = data.data;
-            attractionFrame.innerHTML = "";
-            // console.log(data)
-            if (attractions.length === 0 ){
-                let noResultMessage = document.createElement("div");
-                noResultMessage.classList.add("no_result_message");
-                noResultMessage.textContent = "沒有符合的景點";
-                attractionFrame.appendChild(noResultMessage);
-            }else{
-                attractionHTML(attractions, attractionFrame);
-                nextPage = data.nextPage
-            }
-        })
-        .catch(function(error){
-            console.log("發生錯誤" + error);
-        });
-    });
+    searchBtn.addEventListener("click", searchKeyword) // 這裡不要加括號
 });
 
 // 載入更多景點
 document.addEventListener("DOMContentLoaded", function(){
     const observerContainer = document.getElementById("terget");
     const observer = new IntersectionObserver(function (entries) {
+        // console.log(isLoading)
         if (entries[0].isIntersecting) {
+            // console.log(isLoading)
             if (keyword){
                 loadNextPage(keyword); 
             }else{
