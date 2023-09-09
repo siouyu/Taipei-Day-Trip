@@ -102,7 +102,6 @@
 }
 .mrt_list{
     display:flex;
-    width: 1200px;
     overflow: hidden; /* 超出隱藏 */
     white-space: nowrap; /* 超出不換行 */
     overflow-x: auto; /* 水平滾動 */
@@ -214,13 +213,15 @@
     }
 }
 
-
 @media(max-width:1200px){
     .max_width{
         width: 90%;
     }
     .navigation_frame{
         width: 100%;
+    }
+    .slogan_frame{
+        width: 90%;
     }
     .mrt_list{
         width: 90%;
@@ -244,11 +245,10 @@
         width: 100%;
     }
     .search_input{
-        outline: none;
-        width: 20%;
+        width: 80%;
     }
     .search_btn{
-        width: 5%;
+        width: 20%;
     }
     
 }
