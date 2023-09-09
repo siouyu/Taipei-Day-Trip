@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,33 +16,42 @@
             </div>
         </div>
     </div>
-<!-- 封面圖 -->
+<!-- 封面圖 + 搜尋列 -->
     <div class="slogan_background">
         <div class="max_width">
             <div class="slogan_frame">
                 <div class="slogan_word title">輕鬆享受台北一日悠閒</div>
                 <div class="slogan_word subtitle">探索每個角落，體驗城市的深度旅遊行程</div>
-                <div class="slogan_subtitle">搜尋欄在這裡</div>
+            <div class="search_input_frame">
+                <input class="search_input" id="search_input" placeholder="請輸入景點名稱查詢" type="text"/>
+                <button class="search_btn" id="search_btn">
+                    <img src="/static/images/search.png"/>
+                </button>
+            </div>
             </div>
         </div>
     </div>
 <!-- 捷運列 -->
-<div class="basic_frame">
-    <div class="max_width">
-        <div class="mrt_list">
-            <img src="/static/images/list-bar-left.png" class="list_btn"/>
-            <div class="mrt_word">捷運站      捷運站      捷運站      捷運站      捷運站     捷運站</div>
-            <img src="/static/images/list-bar-right.png" class="list_btn"/>
+    <div class="basic_frame">
+        <div class="max_width">
+            <div class="mrt_frame">
+                <div>
+                    <img src="/static/images/list-bar-left.png" class="list_btn" id="list_btn_left"/>
+                </div>
+                <div class="mrt_list" id="mrt_list">
+                    <!-- <div class="mrt_word">捷運站 1</div>-->
+                </div>
+                <div>
+                    <img src="/static/images/list-bar-right.png" class="list_btn" id="list_btn_right"/>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
 <!-- 景點列表 -->
     <div class="basic_frame">
         <div class="max_width">
-            <div class="attraction_frame" id="attraction_frame">
-                
-                <div class="attraction">
+            <div class="attraction_frame" id="attraction_frame">         
+                <!-- <div class="attraction">
                     <div class="attraction_img">
                         <div class="attraction_name">景點名稱</div>
                     </div>
@@ -50,123 +59,13 @@
                         <div class="attraction_word_mrt">捷運站名</div>
                         <div class="attraction_word_cat">景點分類</div>
                     </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div></div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div></div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-                <div class="attraction">
-                    <div class="attraction_img">
-                        <div class="attraction_name">景點名稱</div>
-                    </div>
-                    <div class="attraction_word">
-                        <div class="attraction_word_mrt">捷運站名</div>
-                        <div class="attraction_word_cat">景點分類</div>
-                    </div>
-                </div>
-
-            </div> 
+                </div> -->
+            </div>
         </div>
     </div>
-
+    <p id="terget"></p>
 <!-- footer -->
     <div class="footer">COPYRIGHT © 台北一日遊</div>    
-
-    <!-- <script src="/static/js/index.js"></script> -->
+    <script src="/static/js/index.js"></script>
 </body>
 </html> 
