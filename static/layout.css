@@ -46,7 +46,7 @@
 }
 .slogan_frame{
     width:1200px;
-    padding-left: 10px;
+    margin-left: 10px;
 }
 .slogan_word{
     color:white;
@@ -54,7 +54,7 @@
     padding-bottom: 22px; 
 }
 .title{
-    font-size: 30px;   
+    font-size: 30px;
 }
 .subtitle{
     font-size: 17.5px;
@@ -233,7 +233,8 @@
 
 @media(max-width:600px){
     .navigation_left{
-        width: 70%;
+        font-size: 28px;
+        width: 72%;
     }
     .navigation_right{
         margin-right: 0px;
@@ -241,8 +242,20 @@
     .slogan_background{
         background-position: left;
     }
+    .slogan_frame{
+        width: 80%;
+    }
+    .slogan_word{
+        width: 300px;
+    }
+    .title{
+        font-size: 28px;
+    }
+    .subtitle{
+        font-size: 16px;
+    }
     .search_input_frame{
-        width: 100%;
+        width: 107%;
     }
     .search_input{
         width: 80%;

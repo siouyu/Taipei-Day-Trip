@@ -1,10 +1,12 @@
 let nextPage = 0; // 全域變數
 let keyword = null; // 預設頁面一開始都沒有關鍵字
 let isLoading = false; // 一開始沒有在載入頁面
+let isSearching = false;
 const attractionFrame = document.getElementById("attraction_frame")
 const searchInput = document.getElementById("search_input");
 
-function attractionHTML(attractions, attractionFrame){
+// funcion declarations
+function attractionHTML(attractions){ // 原本 attractionHTML(attractions, attractionFrame) 裡的 attractionFrame 可以拿掉，因為函示可以從全域變數拿
     for (let i = 0; i < attractions.length; i++) {
         const attraction = attractions[i];
         const imageUrl = attraction.images[0];
@@ -47,9 +49,9 @@ function loadNextPage(keyword) {
         const attractions = data.data;
         if (attractions.length > 0) {
             nextPage = data.nextPage;
-            attractionHTML(attractions, attractionFrame)
+            attractionHTML(attractions)
         } else {
-            nextPage = null;
+            nextPage = null; // 更新全域變數狀態
         }
         isLoading = false; // 跑完不要繼續載
     })
@@ -58,11 +60,16 @@ function loadNextPage(keyword) {
     });
 }
 
+
 function searchKeyword(){
     keyword = searchInput.value.trim(); // 更新關鍵字 → 上面的全域變數被更新
     if (keyword === ""){
-        return
+        return;
     }
+    if (isSearching === true){
+        return;
+    }
+    isSearching = true;
     fetch(`/api/attractions?keyword=${keyword}`).then(function(response){
         return response.json();
     }).then(function(data){
@@ -75,9 +82,10 @@ function searchKeyword(){
             noResultMessage.textContent = "沒有符合的景點";
             attractionFrame.appendChild(noResultMessage);
         }else{
-            attractionHTML(attractions, attractionFrame);
+            attractionHTML(attractions);
             nextPage = data.nextPage
         }
+        isSearching = false;
     })
     .catch(function(error){
         console.log("發生錯誤" + error);
@@ -85,35 +93,36 @@ function searchKeyword(){
 }
 
 //捷運站列表
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function(){
     fetch(`/api/mrts`).then(function(response){
         return response.json();
     }).then(function(data){
-            let mrtList = document.getElementById("mrt_list");
-            let mrtNames = data.data.filter(function(mrt) {
-                return mrt !== null;
-            });
-            let mrtListHTML = mrtNames.map(function(mrt, index) {
-                return `<div class="mrt_word">${mrt}</div>`;
-            }).join("");
-            mrtList.insertAdjacentHTML("beforeend", mrtListHTML);
-
-            let mrtStations = document.querySelectorAll(".mrt_word");
-            let searchInput = document.getElementById("search_input");
-            mrtStations.forEach(function(station) {
-                station.addEventListener("click", function() {
-                    searchInput.value = station.textContent;
-                    searchKeyword();
-                });
-            });
-        })
-        .catch(function(error){
-            console.log("發生錯誤" + error);
+        let mrtList = document.getElementById("mrt_list");
+        let mrtNames = data.data.filter(function(mrt) {  // 從陣列中去掉 null
+            return mrt !== null;
         });
+        let mrtListHTML = mrtNames.map(function(mrt, index) {
+            return `<div class="mrt_word">${mrt}</div>`; 
+        }).join("") // join 把陣列中的所有元素連接成一串單一的字符串 → 可以把 .join("'") 拿掉再 console.log 比較差別
+        // console.log(mrtListHTML) 
+        mrtList.insertAdjacentHTML("beforeend", mrtListHTML);
+
+        let mrtStations = document.querySelectorAll(".mrt_word"); // 捷運站文字跳轉到搜尋框
+        let searchInput = document.getElementById("search_input");
+        for (let i = 0; i < mrtStations.length; i++){
+            mrtStations[i].addEventListener("click", function() {
+                searchInput.value = mrtStations[i].textContent; // 只要 div 裡面的文字
+                searchKeyword(); // 跳轉後自動搜尋
+            });
+        }    
+    })
+    .catch(function(error){
+        console.log("發生錯誤" + error);
     });
+});
 
 // 列表左右按鈕
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function(){
     const leftButton = document.getElementById("list_btn_left");
     const rightButton = document.getElementById("list_btn_right");
     leftButton.onclick = function () {
@@ -127,16 +136,15 @@ document.addEventListener("DOMContentLoaded", function() {
 // 關鍵字搜尋
 document.addEventListener("DOMContentLoaded", function(){
     let searchBtn = document.getElementById("search_btn");
-    searchBtn.addEventListener("click", searchKeyword) // 這裡不要加括號
+    searchBtn.addEventListener("click", searchKeyword); // 這裡不要加括號
+    console.log("點擊！")
 });
 
 // 載入更多景點
 document.addEventListener("DOMContentLoaded", function(){
     const observerContainer = document.getElementById("terget");
     const observer = new IntersectionObserver(function (entries) {
-        // console.log(isLoading)
         if (entries[0].isIntersecting) {
-            // console.log(isLoading)
             if (keyword){
                 loadNextPage(keyword); 
             }else{
