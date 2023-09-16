@@ -49,9 +49,6 @@ a{
     margin-top: 40px;
     margin-bottom: 40px;
     height: 400px;
-    user-select: none; /* standard syntax */
-    -webkit-user-select: auto !important; /* for Chrome、Safari */
-    -moz-user-select: none;  /* for Mozilla、Firefox */
 }
 
 /* 圖片輪播 */
