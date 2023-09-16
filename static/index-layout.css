@@ -42,7 +42,7 @@ a{
     background-image: url("/static/images/welcome.svg");
     background-repeat: no-repeat; 
     background-position: top;
-    background-size:cover;
+    background-size: cover;
     height: 320px;
     max-width: 100%;
     display:flex;
@@ -78,7 +78,7 @@ a{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     outline: none;
-    width: 385px;
+    width: 380px;
     height: 47px;
     padding-left: 15px;
     font-weight: bolder;
@@ -93,7 +93,7 @@ a{
     outline: none;
     cursor: pointer;
     width: 60px;
-    height: 49px;
+    height: 48.5px;
 }
 
 /* index 捷運列 */

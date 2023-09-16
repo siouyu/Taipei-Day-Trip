@@ -18,6 +18,9 @@
     margin-top: 10px; 
     margin-bottom: 10px;
     cursor: pointer;
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* for Chrome、Safari */
+    -moz-user-select: none;  /* for Mozilla、Firefox */
 }
 .navigation_left{
     font-size: 30px;
@@ -34,7 +37,6 @@ a{
     text-align: center;
 }
 
-
 .hr_style{
     border: 0;
     height: 0;
@@ -48,7 +50,7 @@ a{
     margin-bottom: 40px;
     height: 400px;
     user-select: none; /* standard syntax */
-    -webkit-user-select: none; /* for Chrome、Safari */
+    -webkit-user-select: auto !important; /* for Chrome、Safari */
     -moz-user-select: none;  /* for Mozilla、Firefox */
 }
 
@@ -160,6 +162,7 @@ opacity: 1;
     border: 1px solid transparent;
     outline: none;
     color: black;
+    background-color: white;
     width: 160px;
     line-height: 28px;
     align-items: center;
