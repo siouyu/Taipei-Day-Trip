@@ -3,14 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taipei Trip 台北一日遊</title>
-    <link rel="stylesheet" type="text/css" href="/static/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/static/index-layout.css" />
 </head>
 <body>
 <!-- 最上面一欄 -->
     <div class="basic_frame">
         <div class="max_width">
             <div class="navigation_frame">
-                <div class="navigation_left">台北一日遊</div>
+                <a href="/"><div class="navigation_left">台北一日遊</a></div>
                 <div class="navigation_right">預定行程</div>
                 <div class="navigation_right">登入／註冊</div>
             </div>
@@ -25,7 +25,7 @@
             <div class="search_input_frame">
                 <input class="search_input" id="search_input" placeholder="請輸入景點名稱查詢" type="text"/>
                 <button class="search_btn" id="search_btn">
-                    <img src="/static/images/search.png"/>
+                    <img src="/static/images/search.svg"/>
                 </button>
             </div>
             </div>
@@ -35,22 +35,18 @@
     <div class="basic_frame">
         <div class="max_width">
             <div class="mrt_frame">
-                <div>
-                    <img src="/static/images/list-bar-left.png" class="list_btn" id="list_btn_left"/>
-                </div>
+                <img src="/static/images/left-arrow.svg" class="list_btn" id="list_btn_left"/>
                 <div class="mrt_list" id="mrt_list">
                     <!-- <div class="mrt_word">捷運站 1</div>-->
                 </div>
-                <div>
-                    <img src="/static/images/list-bar-right.png" class="list_btn" id="list_btn_right"/>
-                </div>
+                <img src="/static/images/right-arrow.svg" class="list_btn" id="list_btn_right"/>
             </div>
         </div>
     </div>
 <!-- 景點列表 -->
     <div class="basic_frame">
         <div class="max_width">
-            <div class="attraction_frame" id="attraction_frame">         
+            <div class="attraction_frame" id="attraction_frame">   
                 <!-- <div class="attraction">
                     <div class="attraction_img">
                         <div class="attraction_name">景點名稱</div>
@@ -59,7 +55,7 @@
                         <div class="attraction_word_mrt">捷運站名</div>
                         <div class="attraction_word_cat">景點分類</div>
                     </div>
-                </div> -->
+                </div> -->    
             </div>
         </div>
     </div>

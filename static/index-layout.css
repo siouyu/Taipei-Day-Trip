@@ -1,7 +1,11 @@
 *{ 
-    margin: 0px;
-    font-family: Georgia;
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft JhengHei;;
     color: #757575;
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* for Chrome、Safari */
+    -moz-user-select: none;  /* for Mozilla、Firefox */
 }
 .basic_frame{
     display:flex;
@@ -16,12 +20,16 @@
     width: 1200px;
     margin-top: 10px; 
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .navigation_left{
     font-size: 30px;
-    color: #448899;
     font-weight: bold;
     width: 100%;
+}
+a{
+    text-decoration: none;
+    color: #448899;
 }
 .navigation_right{
     width: 130px;
@@ -29,11 +37,9 @@
     text-align: center;
 }
 
-
-
-/* 封面圖 */
+/* index 封面圖 */
 .slogan_background{
-    background-image: url("/static/images/welcome_image.png");
+    background-image: url("/static/images/welcome.svg");
     background-repeat: no-repeat; 
     background-position: top;
     background-size:cover;
@@ -60,18 +66,20 @@
     font-size: 17.5px;
 }
 
-/* 搜尋欄 */
+/* index 搜尋欄 */
 .search_input_frame{
+    margin-top: 10px;
     display: flex;
     width: 460px;
 }
 .search_input{
+    /* border 改用 outline 就不會佔據 px */
     border-width: 0px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     outline: none;
     width: 385px;
-    height: 46px;
+    height: 47px;
     padding-left: 15px;
     font-weight: bolder;
     font-size: 16px;
@@ -82,12 +90,13 @@
     border-width: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    outline: none;
     cursor: pointer;
     width: 60px;
-    height: 48px;
+    height: 49px;
 }
 
-/* 捷運列 */
+/* index 捷運列 */
 .mrt_frame{
     display:flex;
     justify-content: center;
@@ -96,12 +105,9 @@
     margin-right: 15px;
     margin-top: 15px;
     margin-bottom: 30px;  
-    user-select:none; /* standard syntax */
-    -webkit-user-select:none; /* for Chrome、Safari */
-    -moz-user-select:none;  /* for Mozilla、Firefox */
 }
 .mrt_list{
-    display:flex;
+    display: flex;
     overflow: hidden; /* 超出隱藏 */
     white-space: nowrap; /* 超出不換行 */
     overflow-x: auto; /* 水平滾動 */
@@ -123,7 +129,7 @@
     cursor: pointer;
 }
 
-/* 景點列表 */
+/* index 景點列表 */
 .attraction_frame{
     display:flex;
     justify-content: center;
@@ -187,6 +193,7 @@
     font-size: 20px;
     height: 15vw;
 }
+
 
 .footer{
     display: flex;

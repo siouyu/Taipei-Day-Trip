@@ -1,0 +1,331 @@
+*{ 
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft JhengHei;
+    color: #757575;
+}
+.basic_frame{
+    display:flex;
+    justify-content: center;
+}
+.max_width{
+    max-width: 1200px;
+}
+.navigation_frame{
+    display: flex;
+    align-items: center;
+    width: 1200px;
+    margin-top: 10px; 
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.navigation_left{
+    font-size: 30px;
+    font-weight: bold;
+    width: 100%;
+}
+a{
+    text-decoration: none;
+    color: #448899;
+}
+.navigation_right{
+    width: 130px;
+    margin-right: 15px;
+    text-align: center;
+}
+
+
+.hr_style{
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.introduction{
+    display:flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    height: 400px;
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* for Chrome、Safari */
+    -moz-user-select: none;  /* for Mozilla、Firefox */
+}
+
+/* 圖片輪播 */
+.carousel {
+    width: 540px;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+.carousel .container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: 0;
+    display: flex;
+    transition: all 1s;  /* 過渡動畫 */
+}
+.carousel .container .main {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+}
+.carousel .container .main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* 輪播左右按鈕 */
+.carousel .shift .btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    background-color: white;
+    color: black;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    font-size: 26px;
+    /* 文字水平垂直置中 */
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.5; /* 不透明度 0.5 */
+}
+.carousel .shift .left {
+    left: 10px;
+}
+.carousel .shift .right {
+    right: 10px;
+}
+.carousel .bottom {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: max-content;
+    display: flex;
+    gap: 5px; /* 點與點的間距 */
+}
+.carousel .bottom .indicator {
+height: 9px;
+width: 9px;
+border-radius: 100%;
+margin-right: 10px;
+border: 1.8px solid white;
+background-color:white;
+opacity: 0.7;
+cursor: pointer;
+}
+.carousel .bottom .indicator.full {
+background:black;
+}
+.carousel:hover .bottom .indicator {
+opacity: 1;
+}
+.carousel:hover .shift .btn {
+opacity: 1;
+}
+
+/* 景點標題 */
+.introduction_title_frame{
+    margin-left: 20px;
+    line-height: 40px; /* 行高 */
+}
+.tour_frame{
+    background-color: #E8E8E8;
+    width: 560px;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+.h4{
+    padding-right: 8px;
+}
+.tour_word{
+    display: flex;
+    align-items: center;
+}
+/* 選擇日期 */
+.tour_date{
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    outline: none;
+    color: black;
+    width: 160px;
+    line-height: 28px;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 15px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator{
+    background-image: url(/static/images/calendar.svg);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* 選擇時段 */
+.radio{
+    margin-right: 15px;
+}
+.radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+.radio input[type="radio"] + .radio_label:before {
+    content: "";
+    border-radius: 100%;
+    border: 2px solid white;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 4.5px;
+    margin-right: 6px;
+    cursor: pointer;
+    text-align: center;
+    -webkit-transition: all 150ms ease;
+    transition: all 150ms ease;
+}
+.radio input[type="radio"]:checked + .radio_label:before {
+    background-color:#448899;
+    border: 2px solid white;
+}
+.fee {
+    visibility: none;
+}
+#radio-1:checked + .radio_label ~ .tour_word .fee#fee-1 {
+    display: block;
+}
+#radio-2:checked + .radio_label ~ .tour_word .fee#fee-2 {
+    display: block;
+}
+
+
+.btn_reserve{
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    background-color: #448899;
+    border-radius: 8px;
+    text-align: center;
+    color: #E8E8E8;
+    margin-top: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.content_frame{
+    margin-top: 50px;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+    margin-left: 20px;
+    margin-right: 15px;
+}
+.content{
+    margin-top: 25px;
+}
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: -150px;
+    color:white;
+    background-color: #757575;
+    width:100%;
+    height: 104px;
+}
+
+
+
+@media(max-width:1200px){
+    .max_width{
+        width: 90%;
+    }
+    .navigation_frame{
+        width: 100%;
+    }
+}
+
+@media(max-width:1200px){
+    .max_width{
+        width: 90%;
+    }
+    .navigation_frame{
+        width: 100%;
+    }
+    .carousel{
+        width: 700px;
+        height: 400px;
+    }
+    .introduction{
+        flex-wrap: wrap;
+        margin-bottom: 480px;
+    }
+    .introduction_title_frame{
+        margin-top: 15px;
+        margin-right: 20px;
+        justify-content: center;
+    }
+    .carousel{
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width:600px){
+    .max_width{
+        width: 90%;
+    }
+    .navigation_left{
+        font-size: 28px;
+        width: 72%;
+    }
+    .navigation_right{
+        margin-right: 0px;
+    }
+    .upper{
+        display: none;
+    }
+    .introduction{
+        margin-top: 0;
+        margin-bottom: 500px;
+    }
+    .introduction_title_frame{
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-top: 210px;
+    }
+    .carousel{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: absolute;
+        border-radius: 0px;
+    }
+    .tour_frame{
+        width:300px;
+    }
+    .tour_word{
+        margin-right: 10px;
+    }
+    .carousel .shift .left {
+        left: 25px;
+    }
+    .carousel .shift .right {
+        right: 25px;
+    }
+}

@@ -5,6 +5,7 @@ let isSearching = false;
 const attractionFrame = document.getElementById("attraction_frame")
 const searchInput = document.getElementById("search_input");
 
+
 // funcion declarations
 function attractionHTML(attractions){ // 原本 attractionHTML(attractions, attractionFrame) 裡的 attractionFrame 可以拿掉，因為函示可以從全域變數拿
     for (let i = 0; i < attractions.length; i++) {
@@ -13,7 +14,10 @@ function attractionHTML(attractions){ // 原本 attractionHTML(attractions, attr
         const attractionName = attraction.name;
         const attractionCat = attraction.category;
         const attractionMRT = attraction.mrt;
+        const attractionId = attraction.id;
+        const attractionLink = "attraction/" + attractionId;
         const attractionHTML = `
+        <a href="${attractionLink}">
             <div class="attraction">
             <div class="attraction_img">
                 <img src="${imageUrl}" alt="${attractionName}" class="attraction_img_new">
@@ -24,6 +28,7 @@ function attractionHTML(attractions){ // 原本 attractionHTML(attractions, attr
                 <div class="attraction_word_cat">${attractionCat}</div>
             </div>
             </div>
+        </a>
         `;
         attractionFrame.insertAdjacentHTML("beforeend", attractionHTML);
     }
