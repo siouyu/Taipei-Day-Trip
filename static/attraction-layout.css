@@ -329,6 +329,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{
         right: 25px;
     }
     .carousel .bottom {
-        gap: 12px; /* 點與點的間距 */
+        gap: 10px; /* 點與點的間距 */
     }
 }
