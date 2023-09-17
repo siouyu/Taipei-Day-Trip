@@ -112,7 +112,6 @@ console.log("發生錯誤" + error);
 });
 
 
-
 let refreshWrapper = (func) => {
     return function (...args) {
         let result = func(...args);
