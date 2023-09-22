@@ -2,6 +2,7 @@ from flask import *
 from flask_cors import CORS
 import mysql.connector
 import os
+# from flask_jwt_extended import *
 
 # app.json.ensure_ascii = False
 app = Flask(__name__)
@@ -10,14 +11,36 @@ CORS(app)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+# app.config["JWT_SECRET_KEY"] = "super-secret",
+# jwt = JWTManager(app)
+
 def connection():
     con = mysql.connector.connect(
         user = "root",
-        password = "test", 
+        password = os.getenv("mysql_password"),
         host = "127.0.0.1",
         database = "website",
     )
     return con
+
+# @app.route("/api/user", methods=["POST"])
+# def register():
+#     username = request.json.get("username", None)
+#     password = request.json.get("password", None)
+#     if username != "test" or password != "test":
+#         return jsonify({"msg": "Bad username or password"}), 401
+
+#     access_token = create_access_token(identity = username)
+#     return jsonify(access_token = access_token)
+
+# @app.route("/api/user/auth", methods=["GET"])
+# @jwt_required()
+# def protected():
+#     current_user = get_jwt_identity()
+#     return jsonify(logged_in_as = current_user), 200
+
+
+
 
 # Pages
 @app.route("/") # 已寫好的路由函式，勿更動！
@@ -36,6 +59,7 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 	print(os.environ)
+
 
 
 # 取得景點資料列表

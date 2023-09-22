@@ -152,3 +152,6 @@ function refresh() {
     width = Number(width.slice(0, -2))
     carousel.querySelector(".container").style.left = index * width * -1 + "px";
 }
+
+// left: currentImage = (currentImage - 1 + images.length) % images.length;
+// right: currentImage = (currentImage + 1) % images.length;
