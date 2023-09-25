@@ -2,9 +2,8 @@ let nextPage = 0; // 全域變數
 let keyword = null; // 預設頁面一開始都沒有關鍵字
 let isLoading = false; // 一開始沒有在載入頁面
 let isSearching = false;
-const attractionFrame = document.getElementById("attraction_frame")
+const attractionFrame = document.getElementById("attraction_frame");
 const searchInput = document.getElementById("search_input");
-
 
 // funcion declarations
 function attractionHTML(attractions){ // 原本 attractionHTML(attractions, attractionFrame) 裡的 attractionFrame 可以拿掉，因為函示可以從全域變數拿

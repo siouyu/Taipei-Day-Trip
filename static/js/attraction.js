@@ -8,6 +8,21 @@ const attractionImg = document.getElementById("container");
 const attractionTitle = document.getElementById("introduction_title_frame");
 const attractionContent = document.getElementById("content_frame");
 
+document.addEventListener("DOMContentLoaded",function(){
+    if(getToken){
+        logOut.style.display = "block";
+        logIn.style.display = "none";
+    }else{
+        logOut.style.display = "none";
+        logIn.style.display = "block";
+    }
+    logOut.addEventListener("click", function(){
+        localStorage.removeItem("accessToken");
+        location.reload();
+    })
+});
+
+
 fetch(url).then(function(response){
     return response.json();
 }).then(function(data){
