@@ -93,22 +93,39 @@ def authenticate():
 		cursor.close()
 		con.close()
 
+
 @app.route("/api/user/auth", methods=["GET"])
 def getuser():
-    auth_header = request.headers.get('Authorization')
-    if not auth_header or not auth_header.startswith('Bearer '):
-        return jsonify({'message': 'Invalid token'}), 401
+	auth_header = request.headers.get("Authorization")
+	if not auth_header or not auth_header.startswith("Bearer "):
+		return jsonify({"message": "Invalid token"}), 401
+	token = auth_header.split("Bearer ")[1]
+	try:
+		payload = jwt.decode(token, secret, algorithms=["HS256"])
 
-    token = auth_header.split('Bearer ')[1]
+		if payload.get("expire"):
+			timestamp = payload.get("expire")
+			date_time_obj = datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
+			timestamp = date_time_obj.timestamp()
+			current_time =  int(datetime.datetime.now().strftime("%s"))
+			iso_timestamp = int(timestamp)
+			if current_time > iso_timestamp:
+				return jsonify({"message": "Token has expired"}), 401
+		
+		#改這邊
+		user_name = payload.get("name")
+		user_email = payload.get("email")
 
-    try:
-        payload = jwt.decode(token, secret, algorithms=["HS256"])
-    except jwt.ExpiredSignatureError:
-        return jsonify({'message': 'Token has expired'}), 401
-    except jwt.InvalidTokenError:
-        return jsonify({'message': 'Invalid token'}), 401
+		return jsonify({
+			"user_name": user_name,
+			"user_email": user_email,
+		}), 200
 
-    return jsonify({'message': 'Successfully authorized'})
+	except jwt.ExpiredSignatureError:
+		return jsonify({"message": "Token has expired"}), 401
+	except jwt.InvalidTokenError:
+		return jsonify({"message": "Invalid token"}), 401
+	
 
 
 # Pages

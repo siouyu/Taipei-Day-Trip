@@ -128,25 +128,35 @@ document.addEventListener("DOMContentLoaded",function(){
         })
         .catch(function(error){
             registerHide.style.display = "none"; 
-            signInResult.textContent= "帳號或密碼錯誤，將重新載入頁面";
-            setTimeout(function () {
-                location.reload();
-            }, 500);
+            signInResult.textContent= "帳號或密碼錯誤，請重新輸入";
+
         });
     });
 });
 
-
-// const url = "/api/user/auth";
-// const token = "YOUR_JWT_TOKEN_HERE";
-
-// fetch(url, {
-//     method: 'GET',
+// 檢查 api 的 get
+// const urlUser = "/api/user/auth";
+// function handleResponse(response) {
+//     return response.json();
+// }
+// function handleData(data) {
+//     console.log(data);
+// }
+// function handleError(error) {
+//     console.error("Error:", error);
+// }
+// fetch(urlUser, {
+//     method: "GET",
 //     headers: {
-//         'Authorization': `Bearer ${token}`,
-//         'Content-Type': 'application/json'
+//         "Authorization": `Bearer ${getToken}`,
+//         "Content-Type": "application/json"
 //     }
 // })
-// .then(response => response.json())
-// .then(data => console.log(data))
-// .catch((error) => console.error('Error:', error));
+// .then(handleResponse)
+// .then(handleData)
+// .catch(handleError);
+
+
+
+
+
