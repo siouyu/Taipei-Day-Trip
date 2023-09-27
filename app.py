@@ -2,6 +2,13 @@ from flask import *
 from flask_cors import CORS
 import mysql.connector
 import os
+# from flask_jwt_extended import create_access_token
+# from flask_jwt_extended import get_jwt_identity
+# from flask_jwt_extended import jwt_required
+# from flask_jwt_extended import JWTManager
+import jwt
+import datetime
+
 
 # app.json.ensure_ascii = False
 app = Flask(__name__)
@@ -9,15 +16,121 @@ CORS(app)
 
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+secret = os.getenv("secret")
+# app.config["JWT_SECRET_KEY"] = "super-secret",
+# jwt = JWTManager(app)
 
 def connection():
     con = mysql.connector.connect(
         user = "root",
-        password = "test", 
+        password = os.getenv("mysql_password"),
         host = "127.0.0.1",
         database = "website",
     )
     return con
+
+@app.route("/api/user", methods=["POST"])
+def register():
+	data = request.json
+	print(data)
+	name = data.get("name")
+	email = data.get("email")
+	password = data.get("password")
+
+	if not name or not email or not password:
+		return jsonify({"error": True, "message":"請填寫完整資料"}), 400
+	con = connection()
+	cursor = con.cursor()
+
+	try:
+		cursor.execute("SELECT * FROM taipei_trip_member WHERE email = %s ",(email,))
+		existing_user = cursor.fetchone()
+
+		if existing_user:
+			return jsonify({"error": True, "message":" 這個 Email 已被註冊"}),400
+
+		cursor.execute("INSERT INTO taipei_trip_member (name, email, password) VALUES (%s, %s, %s)", (name, email, password))
+		con.commit()
+		return jsonify({"ok":True}), 200
+	
+	except mysql.connector.Error as e:
+		return jsonify({"error": True, "message":"伺服機錯誤"}), 500
+
+	finally:
+		cursor.close()
+		con.close()
+
+@app.route("/api/user/auth", methods=["PUT"])
+def authenticate():
+	data = request.json
+	print(data)
+	email = data.get("email")
+	password = data.get("password")
+
+	if not email or not password:
+		return jsonify({"error": True, "message":"請填寫完整資料"}), 400
+
+	con = connection()
+	cursor = con.cursor()
+
+	try:
+		cursor.execute("SELECT id, name, email, password FROM taipei_trip_member WHERE email = %s", (email,))
+		user = cursor.fetchone()
+		print(user)
+		
+		if user and password == user[3]:
+			expiration_time = datetime.datetime.utcnow() + datetime.timedelta(days=7)
+			access_token = jwt.encode({"id":str(user[0]), "name":str(user[1]), "email":str(user[2]), "expire":str(expiration_time)}, secret, algorithm="HS256")
+			print(expiration_time)
+			print(access_token)
+			return jsonify({"access_token": access_token}), 200
+		else:
+			return jsonify({"error":True, "message":"帳號或密碼錯誤"}), 400
+	except Exception as e:
+		return jsonify({"error": True, "message":e}), 500
+	
+	finally:
+		cursor.close()
+		con.close()
+
+
+@app.route("/api/user/auth", methods=["GET"])
+def getuser():
+	auth_header = request.headers.get("Authorization")
+	if not auth_header or not auth_header.startswith("Bearer "):
+		return jsonify({"message": "Invalid token"}), 401
+	token = auth_header.split("Bearer ")[1]
+	try:
+		payload = jwt.decode(token, secret, algorithms=["HS256"])
+
+		if payload.get("expire"):
+			timestamp = payload.get("expire")
+			date_time_obj = datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
+			timestamp = date_time_obj.timestamp()
+			current_time =  int(datetime.datetime.now().strftime("%s"))
+			iso_timestamp = int(timestamp)
+			if current_time > iso_timestamp:
+				return jsonify({"message": "Token has expired"}), 401
+		
+		#改這邊
+		user_id = payload.get("id")
+		user_name = payload.get("name")
+		user_email = payload.get("email")
+
+		return jsonify({
+			"id": user_id,
+			"name": user_name,
+			"email": user_email,
+		}), 200
+
+	except jwt.ExpiredSignatureError:
+		return jsonify({"message": "Token has expired"}), 401
+	except jwt.InvalidTokenError:
+		return jsonify({
+			"id": None,
+			"name": None,
+			"email": None,
+		}), 200
 
 # Pages
 @app.route("/") # 已寫好的路由函式，勿更動！
@@ -36,6 +149,7 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 	print(os.environ)
+
 
 
 # 取得景點資料列表

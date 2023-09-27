@@ -8,6 +8,21 @@ const attractionImg = document.getElementById("container");
 const attractionTitle = document.getElementById("introduction_title_frame");
 const attractionContent = document.getElementById("content_frame");
 
+document.addEventListener("DOMContentLoaded",function(){
+    if(getToken){
+        logOut.style.display = "block";
+        logIn.style.display = "none";
+    }else{
+        logOut.style.display = "none";
+        logIn.style.display = "block";
+    }
+    logOut.addEventListener("click", function(){
+        localStorage.removeItem("accessToken");
+        location.reload();
+    })
+});
+
+
 fetch(url).then(function(response){
     return response.json();
 }).then(function(data){
@@ -152,3 +167,6 @@ function refresh() {
     width = Number(width.slice(0, -2))
     carousel.querySelector(".container").style.left = index * width * -1 + "px";
 }
+
+// left: currentImage = (currentImage - 1 + images.length) % images.length;
+// right: currentImage = (currentImage + 1) % images.length;

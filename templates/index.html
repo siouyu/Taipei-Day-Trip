@@ -6,16 +6,64 @@
     <link rel="stylesheet" type="text/css" href="/static/index-layout.css" />
 </head>
 <body>
+
 <!-- 最上面一欄 -->
     <div class="basic_frame">
         <div class="max_width">
             <div class="navigation_frame">
                 <a href="/"><div class="navigation_left">台北一日遊</a></div>
                 <div class="navigation_right">預定行程</div>
-                <div class="navigation_right">登入／註冊</div>
+                <div class="navigation_right" id="open_popup">登入／註冊</div>
+                <div class="navigation_right" id="logout">登出</div>
             </div>
         </div>
     </div>
+
+<!-- 彈跳視窗 -->
+    <div class="popup_overlay" id="popup"> 
+        <div class="pop_frame_register" id="pop_frame_register">
+            <div class="pop_upper"></div>
+            <h2 class="pop_h2">註冊會員帳號</h2>
+            <div>
+                <label for="name"></label>
+                <input class="pop_content registerContent" name="register_name" placeholder="輸入姓名" type="text"/>
+            </div>
+            <div>
+                <label for="email"></label>
+                <input class="pop_content registerContent" name="register_email" placeholder="輸入電子郵件"  type="text"/>
+            </div>
+            <div>
+                <label for="password"></label>
+                <input class="pop_content registerContent" name="register_password" placeholder="輸入密碼" type="password"/>
+            </div>
+            <div class="pop_content registerBtn" id="register_btn">註冊新帳戶</div>
+            <div class="pop_ask" id="pop_ask_signin">
+                <div class="asking">已經有帳戶了？</div>
+                <div class="click_word_signin" id="click_word_signin">點此登入</div>
+            </div>
+            <div class="registerResult" id="registerResult"></div>
+        </div>
+        <!-- 登入會員帳號 -->
+        <div class="pop_frame_signin" id="pop_frame_signin">
+            <div class="pop_upper"></div>
+            <h2 class="pop_h2">登入會員帳號</h2>
+            <div>
+                <label for="email"></label>
+                <input class="pop_content registerContent" name="sign_email" placeholder="輸入電子郵件" type="text"/>
+            </div>
+            <div>
+                <label for="password"></label>
+                <input class="pop_content registerContent" name="sign_password" placeholder="輸入密碼" type="password"/>
+            </div>
+            <div class="pop_content registerBtn" id="pop_sign_btn">登入帳戶</div>
+            <div class="pop_ask" id="pop_ask_register">
+                <div class="asking">還沒有帳戶？</div>
+                <div class="click_word_register" id="click_word_register">點此註冊</div>
+            </div>
+            <div class="signInResult" id="signInResult"></div>
+        </div>
+    </div>
+
 <!-- 封面圖 + 搜尋列 -->
     <div class="slogan_background">
         <div class="max_width">
@@ -63,5 +111,6 @@
 <!-- footer -->
     <div class="footer">COPYRIGHT © 台北一日遊</div>    
     <script src="/static/js/index.js"></script>
+    <script src="/static/js/popup.js"></script>
 </body>
 </html> 
