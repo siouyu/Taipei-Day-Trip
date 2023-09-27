@@ -80,7 +80,7 @@ def authenticate():
 		
 		if user and password == user[3]:
 			expiration_time = datetime.datetime.utcnow() + datetime.timedelta(days=7)
-			access_token = jwt.encode({"name":str(user[1]), "email":str(user[2]), "expire":str(expiration_time)}, secret, algorithm="HS256")
+			access_token = jwt.encode({"id":str(user[0]), "name":str(user[1]), "email":str(user[2]), "expire":str(expiration_time)}, secret, algorithm="HS256")
 			print(expiration_time)
 			print(access_token)
 			return jsonify({"access_token": access_token}), 200
@@ -113,20 +113,24 @@ def getuser():
 				return jsonify({"message": "Token has expired"}), 401
 		
 		#改這邊
+		user_id = payload.get("id")
 		user_name = payload.get("name")
 		user_email = payload.get("email")
 
 		return jsonify({
-			"user_name": user_name,
-			"user_email": user_email,
+			"id": user_id,
+			"name": user_name,
+			"email": user_email,
 		}), 200
 
 	except jwt.ExpiredSignatureError:
 		return jsonify({"message": "Token has expired"}), 401
 	except jwt.InvalidTokenError:
-		return jsonify({"message": "Invalid token"}), 401
-	
-
+		return jsonify({
+			"id": None,
+			"name": None,
+			"email": None,
+		}), 200
 
 # Pages
 @app.route("/") # 已寫好的路由函式，勿更動！

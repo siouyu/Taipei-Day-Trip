@@ -4,20 +4,6 @@ const logIn = document.getElementById("open_popup");
 const logOut = document.getElementById("logout");
 let getToken = localStorage.getItem("accessToken");
 
-document.addEventListener("DOMContentLoaded",function(){
-    if(getToken){
-        logOut.style.display = "block";
-        logIn.style.display = "none";
-    }else{
-        logOut.style.display = "none";
-        logIn.style.display = "block";
-    }
-    logOut.addEventListener("click", function(){
-        localStorage.removeItem("accessToken");
-        location.reload();
-    })
-});
-
 //跳出彈跳視窗
 const popup = document.getElementById("popup");
 const openPopupBtn = document.getElementById("open_popup");
@@ -27,20 +13,20 @@ const signinPopup = document.getElementById("pop_frame_signin")
 const registerPopup = document.getElementById("pop_frame_register")
 
 openPopupBtn.addEventListener("click", function() {
-    popup.style.display = "flex"; 
+    popup.style.display = "flex";
     signinPopup.style.display = "block";
 });
 
 popup.addEventListener("click", function(event) {
     if (event.target === popup) {
-        popup.style.display = "none"; 
+        popup.style.display = "none";
         signinPopup.style.display = "none";
         registerPopup.style.display = "none";
     }
 });
 
 window.addEventListener("scroll", function() {
-    popup.style.display = "none"; 
+    popup.style.display = "none";
     signinPopup.style.display = "none";
     registerPopup.style.display = "none";
 });
@@ -51,7 +37,7 @@ signinClick.addEventListener("click", function(){
 })
 
 registerClick.addEventListener("click", function(){
-    signinPopup.style.display = "none"; 
+    signinPopup.style.display = "none";
     registerPopup.style.display = "block";
 })
 
@@ -119,7 +105,7 @@ document.addEventListener("DOMContentLoaded",function(){
             return response.json();
         })
         .then(function(data){
-            registerHide.style.display = "none"; 
+            registerHide.style.display = "none";
             signInResult.textContent = "登入成功！";
             localStorage.setItem("accessToken", data.access_token);
             setTimeout(function () {
@@ -127,34 +113,66 @@ document.addEventListener("DOMContentLoaded",function(){
             }, 500);
         })
         .catch(function(error){
-            registerHide.style.display = "none"; 
+            registerHide.style.display = "none";
             signInResult.textContent= "帳號或密碼錯誤，請重新輸入";
 
         });
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("/api/user/auth", {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${getToken}`,
+            "Content-Type": "application/json"
+        }
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            throw new Error("Authentication failed");
+        }
+        return response.json();
+    })
+    .then(function (data) {
+        if (data.id !== null) {
+            logOut.style.display = "block";
+            logIn.style.display = "none";
+            logOut.addEventListener("click", function () {
+                localStorage.removeItem("accessToken");
+                location.reload();
+            });
+        } else {
+            logOut.style.display = "none";
+            logIn.style.display = "block";
+        }
+    })
+    .catch(function (error) {
+        console.error("Error:", error);
+    });
+});
+
 // 檢查 api 的 get
-// const urlUser = "/api/user/auth";
-// function handleResponse(response) {
-//     return response.json();
-// }
-// function handleData(data) {
-//     console.log(data);
-// }
-// function handleError(error) {
-//     console.error("Error:", error);
-// }
-// fetch(urlUser, {
-//     method: "GET",
-//     headers: {
-//         "Authorization": `Bearer ${getToken}`,
-//         "Content-Type": "application/json"
-//     }
-// })
-// .then(handleResponse)
-// .then(handleData)
-// .catch(handleError);
+const urlUser = "/api/user/auth";
+function handleResponse(response) {
+    return response.json();
+}
+function handleData(data) {
+    console.log(data);
+}
+function handleError(error) {
+    console.error("Error:", error);
+}
+fetch(urlUser, {
+    method: "GET",
+    headers: {
+        "Authorization": `Bearer ${getToken}`,
+        "Content-Type": "application/json"
+    }
+})
+.then(handleResponse)
+.then(handleData)
+.catch(handleError);
 
 
 
