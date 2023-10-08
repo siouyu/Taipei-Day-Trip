@@ -418,9 +418,3 @@ input[type="text"]  {
         margin-top: 200px;
     }
 }
-
-@media(max-width:392px){
-    .booking_delete{
-        margin-top: 10px;
-    }
-}
