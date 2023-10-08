@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/static/booking-layout.css" />
 </head>
 <body>
+
 <!-- 最上面一欄 -->
     <div class="basic_frame">
         <div class="max_width">
@@ -17,7 +18,7 @@
             </div>
         </div>
     </div>
-    <hr class="hr_style upper">
+<hr class="hr_style upper">
 
 <!-- 彈跳視窗 -->
 <div class="popup_overlay" id="popup"> 
@@ -43,7 +44,6 @@
         </div>
         <div class="registerResult" id="registerResult"></div>
     </div>
-
     <!-- 登入會員帳號 -->
     <div class="pop_frame_signin" id="pop_frame_signin">
         <div class="pop_upper"></div>
@@ -65,21 +65,21 @@
     </div>
 </div>
 
-<!-- 訂購內容 -->
+
 <div class="basic_frame">
     <div class="max_width">
-        <div class="booking_h3_top">
-            <h3 class="booking_h3">感謝您的訂購！</h3>
-            <div>訂單編號：${result.data.number}</div>
+        <div class="booking_empty_frame">
+            <h3 class="booking_empty_h3">您好，{{name}}，待預定的行程如下：</h3>
+            <div>目前沒有任何待預定的行程</div>
         </div>
-    </div> <!-- max_width -->
-</div> <!-- basic_frame -->
-
+    </div>
+</div>
 <div class="footer_empty">
     <div class="footer_empty_text">COPYRIGHT © 台北一日遊</div>
-</div>
+</div> 
 
-<script src="/static/js/thankyou.js"></script>
-<script src="/static/js/popup.js"></script>
+
+    <script src="/static/js/booking.js"></script>
+    <script src="/static/js/popup.js"></script>
 </body>
-</html>
+</html> 

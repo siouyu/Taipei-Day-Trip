@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taipei Trip 台北一日遊</title>
+    <link rel="stylesheet" type="text/css" href="/static/booking-layout.css" />
+</head>
+<body>
+<!-- 最上面一欄 -->
+    <div class="basic_frame">
+        <div class="max_width">
+            <div class="navigation_frame">
+                <a href="/"><div class="navigation_left">台北一日遊</a></div>
+                <div class="navigation_right" id="booking">預定行程</div>
+                <div class="navigation_right" id="open_popup">登入／註冊</div>
+                <div class="navigation_right" id="logout">登出</div>
+            </div>
+        </div>
+    </div>
+    <hr class="hr_style upper">
+
+<!-- 彈跳視窗 -->
+<div class="popup_overlay" id="popup"> 
+    <div class="pop_frame_register" id="pop_frame_register">
+        <div class="pop_upper"></div>
+        <h2 class="pop_h2">註冊會員帳號</h2>
+        <div>
+            <label for="name"></label>
+            <input class="pop_content registerContent" name="register_name" placeholder="輸入姓名" type="text"/>
+        </div>
+        <div>
+            <label for="email"></label>
+            <input class="pop_content registerContent" name="register_email" placeholder="輸入電子郵件"  type="text"/>
+        </div>
+        <div>
+            <label for="password"></label>
+            <input class="pop_content registerContent" name="register_password" placeholder="輸入密碼" type="password"/>
+        </div>
+        <div class="pop_content registerBtn" id="register_btn">註冊新帳戶</div>
+        <div class="pop_ask" id="pop_ask_signin">
+            <div class="asking">已經有帳戶了？</div>
+            <div class="click_word_signin" id="click_word_signin">點此登入</div>
+        </div>
+        <div class="registerResult" id="registerResult"></div>
+    </div>
+    <!-- 登入會員帳號 -->
+    <div class="pop_frame_signin" id="pop_frame_signin">
+        <div class="pop_upper"></div>
+        <h2 class="pop_h2">登入會員帳號</h2>
+        <div>
+            <label for="email"></label>
+            <input class="pop_content registerContent" name="sign_email" placeholder="輸入電子郵件" type="text"/>
+        </div>
+        <div>
+            <label for="password"></label>
+            <input class="pop_content registerContent" name="sign_password" placeholder="輸入密碼" type="password"/>
+        </div>
+        <div class="pop_content registerBtn" id="pop_sign_btn">登入帳戶</div>
+        <div class="pop_ask" id="pop_ask_register">
+            <div class="asking">還沒有帳戶？</div>
+            <div class="click_word_register" id="click_word_register">點此註冊</div>
+        </div>
+        <div class="signInResult" id="signInResult"></div>
+    </div>
+</div>
+
+
+<!-- 預定行程 -->
+<div class="basic_frame_booking" id="booking_content">
+    <div class="max_width">
+        <h3 class="booking_h3_top">您好，<span id="userName"></span>，待預定的行程如下：</h3>
+            <div class="booking_empty" id="bookingEmpty">
+                <div class="booking_content_top" id="bookingInfo">
+                    <!-- <img src="booking["image"] class="booking_img"/>
+                    <h4>台北一日遊：booking["name"]</h4>
+                    <div>日期：booking["date"]</div>
+                    <div>時間：booking["time"]</div>
+                    <div>費用：booking["price"]</div>
+                    <div>地點：booking["address"]</div>     -->
+                    <img src="/static/images/delete.svg" class="booking_delete" id="booking_delete">
+                </div>
+                <hr class="hr_style_booking">
+
+                <div class="booking_content_frame" id="booking_content_userdata">
+                    <h3 class="booking_h3">您的聯絡資訊</h3>
+                        <div>
+                            <label>聯絡姓名：</label>
+                            <input  id="contactName" class="booking_input" for="name" required type="text"/>
+                        </div>
+                    <div>
+                            <label>聯絡信箱：</label>
+                            <input id="contactEmail" class="booking_input" id="email" required type="text" />
+                            <span id="emailError" class="expire_error"></span>
+                        </div>
+                        <div>
+                            <label>手機號碼：</label>
+                            <input id="contactNumber" class="booking_input" id="phoneNumber" type="text"/>
+                        </div>
+                        <div class="booking_remind">請保持手機通暢，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+                </div>  
+                <hr class="hr_style_booking">
+
+                <div class="booking_content_frame" id="booking_content_pay">
+                    <h3 class="booking_h3">信用卡付款資訊</h3>
+                        <div class="creditcard_frame">
+                            <label>卡片號碼：</label>
+                            <div class="tpfield" id="card-number"></div>
+                            <!-- <input class="booking_input" id="creditNumber" placeholder="···· ···· ···· ···· " pattern="[0-9]{13,16}" required maxlength="19" type="text"/> -->
+                        </div>
+                        <div class="creditcard_frame">
+                            <label>過期時間：</label>
+                            <div class="tpfield" id="card-expiration-date"></div>
+                            <!-- <input class="booking_input" id="creditExpire" placeholder="MM / YY" required type="text"/>
+                            <span id="expireError" class="expire_error"></span> -->
+                        </div>
+                        <div class="creditcard_frame">
+                            <label>驗證密碼：</label>
+                            <div class="tpfield" id="card-ccv"></div>
+                            <!-- <input class="booking_input" id="creditCVV" placeholder="CVV " required maxlength="3" type="text"/> -->
+                        </div>
+                </div>
+                <hr class="hr_style_booking">
+
+                <div class="pay_check_content" >
+                    <div class="checkError" id="bookingFinish"></div>
+                    <span class="checkError" id="checkError"></span>
+                    <div class="pay_check_price" id="pay_check_price"></div>
+                    <div class="pay_check_btn" id="pay_check_btn">確認訂購並付款</div>
+                </div>
+            </div>
+        </div>   
+    </div> <!-- max_width -->
+</div> <!-- basic_frame -->
+
+<div class="footer" id="footer">COPYRIGHT © 台北一日遊</div>   
+
+<script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
+<script src="/static/js/booking.js"></script>
+<script src="/static/js/popup.js"></script>
+</body>
+</html>
