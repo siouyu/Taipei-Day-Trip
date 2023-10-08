@@ -8,6 +8,7 @@ const attractionImg = document.getElementById("container");
 const attractionTitle = document.getElementById("introduction_title_frame");
 const attractionContent = document.getElementById("content_frame");
 
+
 document.addEventListener("DOMContentLoaded",function(){
     if(getToken){
         logOut.style.display = "block";
@@ -70,7 +71,7 @@ fetch(url).then(function(response){
             </div>
             <div class="tour_word">
                 <h4 class="h4">選擇日期：</h4>
-                <input type="date" value="yyyy-MM-dd" class="tour_date"/>
+                <input type="date" value="yyyy-MM-dd" class="tour_date" id="booking_date"/>
             </div>
             <div class="tour_word">
                 <h4 class="h4">選擇時間：</h4>                       
@@ -88,7 +89,7 @@ fetch(url).then(function(response){
                 <div class="fee" id="fee-1">新台幣 2000 元</div>
                 <div class="fee" id="fee-2">新台幣 2500 元</div>
             </div>
-                <button class="btn_reserve">開始預約行程</button>
+            <button class="btn_reserve" id="booking_btn">開始預約行程</button>
         </div>
     `
     attractionTitle.insertAdjacentHTML("beforeend", nameHTML);
@@ -121,6 +122,49 @@ fetch(url).then(function(response){
     });
     fee1.style.display = "block";
     fee2.style.display = "none";
+
+    // 開始預定行程
+    document.getElementById("booking_btn").addEventListener("click",function(){
+        const attractionId = id;
+        const date = document.getElementById("booking_date");
+        let time
+        let price
+        const fee1 = document.getElementById("fee-1");
+        if (fee1.style.display === "block"){
+            price = "新台幣 2000 元"
+            time = "上半天"
+        } else {
+            price = "新台幣 2500 元"
+            time = "下半天"
+        }
+
+        const bookingData = {
+            "attractionId": attractionId,
+            "date": date.value,
+            "time": time,
+            "price": price,
+        };
+        fetch("/api/booking",{
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${getToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bookingData)
+        })
+        .then(function(response){
+            if (response.status == 200){
+                window.location.href = "/booking"; 
+            }
+            else if (response.status == 403){
+                popup.style.display = "flex";
+                signinPopup.style.display = "block";
+            }
+        })
+        .catch(function(error){
+            console.log("發生錯誤" + error);
+        });
+    });
 })
 .catch(function(error) {
 console.log("發生錯誤" + error);
@@ -167,6 +211,12 @@ function refresh() {
     width = Number(width.slice(0, -2))
     carousel.querySelector(".container").style.left = index * width * -1 + "px";
 }
-
 // left: currentImage = (currentImage - 1 + images.length) % images.length;
 // right: currentImage = (currentImage + 1) % images.length;
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 const signBtn = document.getElementById("pop_sign_btn");
 const registerBtn = document.getElementById("register_btn");
+const startBooking = document.getElementById("booking");
 const logIn = document.getElementById("open_popup");
 const logOut = document.getElementById("logout");
 let getToken = localStorage.getItem("accessToken");
@@ -25,6 +26,7 @@ popup.addEventListener("click", function(event) {
     }
 });
 
+// 這裡手機版會出問題！！！
 window.addEventListener("scroll", function() {
     popup.style.display = "none";
     signinPopup.style.display = "none";
@@ -120,6 +122,7 @@ document.addEventListener("DOMContentLoaded",function(){
     });
 });
 
+
 document.addEventListener("DOMContentLoaded", function () {
     fetch("/api/user/auth", {
         method: "GET",
@@ -175,6 +178,12 @@ fetch(urlUser, {
 .catch(handleError);
 
 
-
-
+startBooking.addEventListener("click",function(){
+    if(getToken){
+        window.location.href = "/booking";
+    }else{
+        popup.style.display = "flex";
+        signinPopup.style.display = "block";
+    }
+});
 
